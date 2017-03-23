@@ -9,6 +9,14 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
+/**
+ * This is an extracted out window which contains the PreferenceTab instances
+ * for this project. This class is essentially a shell for all the preference
+ * choices and it holds all of those many preference choices in this window
+ * which contains tabs. It is very much flexible because it can hold an unlimited
+ * amount of tabs and therefore have unlimited functionality. 
+ * @author Matthew Tribby
+ */
 public class PreferencesWindow {
 
 public static final int WINDOW_WIDTH = 400;
@@ -18,6 +26,12 @@ private TabPane tabPane;
 public static final String RESOURCE_PACKAGE = "English";
 private ResourceBundle resources = ResourceBundle.getBundle("resources.ui/" + RESOURCE_PACKAGE);
 	
+	/**
+	 * Constructor: Initializes the window. 
+	 * @param turtleScreenControl TurtleScreenController reference which is
+	 * 							  necessary because the preferences window
+	 * 							  needs to be able to affect turtle screen.
+	 */
 	public PreferencesWindow(TurtleScreenController turtleScreenControl){
 		turtleScreenController = turtleScreenControl;
 		
@@ -31,6 +45,10 @@ private ResourceBundle resources = ResourceBundle.getBundle("resources.ui/" + RE
 		stage.show();
 	}
 	
+	/**
+	 * Adds an additional tab to the window
+	 * @param tab Tab object
+	 */
 	public void addTab(Tab tab){
 		tabPane.getTabs().add(tab);
 	}

@@ -5,12 +5,21 @@ import java.util.ResourceBundle;
 
 import javafx.scene.control.TextInputDialog;
 
+/**
+ * Class which allows the user to edit a variable
+ * @author Matthew Tribby
+ */
 public class VariableEditor {
 	VariableEntry entry;
 	
 	public static final String RESOURCE_PACKAGE = "English";
 	private ResourceBundle resources = ResourceBundle.getBundle("resources.ui/" + RESOURCE_PACKAGE);
 	
+	/**
+	 * Constructor which pops up a window which allows the user to edit a specific
+	 * variable
+	 * @param varEntry Variable entry to be changed
+	 */
 	public VariableEditor(VariableEntry varEntry){
 		//http://code.makery.ch/blog/javafx-dialogs-official/
 		entry = varEntry;
