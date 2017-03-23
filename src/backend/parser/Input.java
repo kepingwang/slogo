@@ -8,7 +8,8 @@ import java.util.List;
  *         breakpoints, current and previous expressions when they have been
  *         evaluated, and other related elements.
  */
-public class Input {
+public class Input implements java.io.Serializable {
+
 	private Expression expr;
 	private Expression previous;
 	private int index;

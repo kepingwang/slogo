@@ -2,7 +2,6 @@ package backend.parser;
 
 import backend.BackendController;
 import backend.Variable;
-import backend.parser.Expression;
 
 /**
  * This class is the implementation of the Group Expression. An instance of this
@@ -14,7 +13,8 @@ public class GroupStartExpression extends MultiExpression {
 	public GroupStartExpression(Input info, BackendController controller) {
 		super(info, controller, "Group");
 		info.incrementIndex();
-		Expression command = getBackendController().getParser().parse(info.get(), info.getBreakPoints()).getChildren()
+		String [] args = getArg().split("\\s+");
+		Expression command = getBackendController().getParser().parse(args[0], info.getBreakPoints()).getChildren()
 				.get(0);
 		command.setParent(this);
 		command.addChildren(getBackendController().getParser().parse(getArg(), info.getBreakPoints()).getChildren());
@@ -31,10 +31,12 @@ public class GroupStartExpression extends MultiExpression {
 	 */
 	@Override
 	public Variable evaluate() {
+		Variable ret = null;
 		if (checkLines()) {
-			return getChildren().get(0).evaluate();
+			ret = getChildren().get(0).evaluate();
+			setCurrentLine(getChildren().get(0).getLineNumber());
 		}
-		return null;
+		return ret;
 	}
 
 }

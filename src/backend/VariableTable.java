@@ -2,8 +2,7 @@ package backend;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import frontend.app.FrontEndController;
+import frontend.frontend.FrontEndController;
 
 /**
  * @author nikita This class is the implementation of the Variable table. It is
@@ -68,7 +67,7 @@ public class VariableTable implements VariableTableInterface {
 			frontEndController.showError("VariableError", var.getKey());
 		}
 	}
-
+	
 	public boolean contains(String name) {
 		return variables.keySet().contains(name.toUpperCase());
 	}

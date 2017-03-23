@@ -15,8 +15,9 @@ import backend.parser.Input;
  *         class is created when a blank command is identified in the parser
  *         (one that hasn't yet been defined but fits the command syntax)
  */
-public class Command extends Expression implements CommandInterface {
+public class Command extends Expression implements CommandInterface, java.io.Serializable {
 
+	private static final long serialVersionUID = -999830543243605085L;
 	private int numArgs;
 	private String name;
 
@@ -67,6 +68,8 @@ public class Command extends Expression implements CommandInterface {
 				UserCommand command = new UserCommand(name, getBackendController(), getInfo(), temp.getArgNames(),
 						temp.getCommands());
 				command.addChildren(getChildren());
+				command.setBackendController(getBackendController());
+				command.getCommands().setBackendController(getBackendController());
 				return new Variable(null, command.execute());
 			} catch (CommandException e) {
 				getBackendController().getParser().complain(e);
@@ -109,4 +112,10 @@ public class Command extends Expression implements CommandInterface {
 			ret.add(child.evaluate());
 		return ret;
 	}
+	
+	@Override
+	public String toString() {
+		return "Command "+name;
+	}
+	
 }

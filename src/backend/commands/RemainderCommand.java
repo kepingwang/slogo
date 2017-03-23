@@ -5,6 +5,7 @@ import java.util.List;
 import backend.BackendController;
 import backend.Command;
 import backend.Variable;
+import backend.commands.abstracts.SimpleFoldCommand;
 import backend.parser.Input;
 
 /**
@@ -12,24 +13,14 @@ import backend.parser.Input;
  *         instance of this class gets created when the parser identifies that
  *         the user typed a Remainder command
  */
-public class RemainderCommand extends Command {
+public class RemainderCommand extends SimpleFoldCommand {
 
 	public RemainderCommand(Input in, BackendController controller) {
 		super(in, controller, 2);
 	}
 
-	/**
-	 * returns first argument modulo the rest of the arguments. supports
-	 * unlimited parameters
-	 * 
-	 * @return the first argument module the rest of the arguments
-	 */
 	@Override
-	public double execute() {
-		List<Variable> args = getArgs();
-		double result = args.get(0).getValue();
-		for (int i = 1; i < args.size(); i++)
-			result = result % args.get(i).getValue();
-		return result;
+	public double run(double result, Variable curArg) {
+		return result % curArg.getValue();
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import backend.BackendController;
 import backend.Command;
 import backend.Variable;
+import backend.commands.abstracts.SimpleFoldCommand;
 import backend.parser.Input;
 
 /**
@@ -12,24 +13,14 @@ import backend.parser.Input;
  *         instance of this class gets created when the parser identifies that
  *         the user typed a difference command
  */
-public class DifferenceCommand extends Command {
+public class DifferenceCommand extends SimpleFoldCommand {
 
 	public DifferenceCommand(Input in, BackendController controller) {
 		super(in, controller, 2);
 	}
-
-	/**
-	 * evaluate the difference between the first argument and all subsequent
-	 * arguments. supports unlimited arguments.
-	 * 
-	 * @return difference between first argument and all subsequent arguments
-	 */
+	
 	@Override
-	public double execute() {
-		List<Variable> args = getArgs();
-		double ret = args.get(0).getValue();
-		for (int i = 1; i < args.size(); i++)
-			ret -= args.get(i).getValue();
-		return ret;
+	public double run(double result, Variable curArg) {
+		return result - curArg.getValue();
 	}
 }

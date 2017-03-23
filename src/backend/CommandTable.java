@@ -2,9 +2,8 @@ package backend;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import backend.commands.UserCommand;
-import frontend.app.FrontEndController;
+import frontend.frontend.FrontEndController;
 
 /**
  * @author nikita This class is the implementation of the Command Table. It
@@ -65,4 +64,10 @@ public class CommandTable implements CommandTableInterface {
 			}
 		}
 	}
+
+	public void removeCommand(String key) {
+		commands.remove(key.toUpperCase());
+
+	}
+
 }

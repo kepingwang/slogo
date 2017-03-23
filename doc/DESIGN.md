@@ -13,6 +13,13 @@ This graph shows our overall design. The program is separated into two parts, th
 The frontend external APIs are defined inside FrontendController, including methods that the backend calls to update the view. The backend external API is mainly just the evaluate(String input) method in BackendController, which parsers and executes the user input and udpates the frontend accordingly. The frontend internal APIs are methods that connects between FrontendController and all the sub controllers. The backend internal APIs are methods methods that parses the language and update the variable and command environment.<br/>
 When a user wants to evaluate a piece of input string in the frontend, the frontendController.evaluate(input) is called, which then calls backendController.evaluate(input) and the backend starts evaluating the input. Evaluating the input is performed in the parser, which generates a Command object that the backend controller can directly execute. When these command objects are executed, the variable table, the command table, and the properties of the turtle are modified accordingly. During the execution process, whenever an update (variable, command, or turtle) needs to be shown in the frontend, the corresponding method defined in the frontend is called.<br/>
 
+Design Update (also refer to [API_CHANGES.md](https://coursework.cs.duke.edu/CompSci308_2017Spring/slogo_team08/blob/master/doc/API_CHANGES.md)):
+-----------
+#### Frontend:
+1. We changed frontend external API for turtle commands to allow for animation and built a event system to handle animation. Now when backend executes a turtle command by calling the frontend API, the turtles don't get updated immediately, but an update event is created and the turtles are updated frame by frame.
+2. We allowed multiple turtles by putting an extra layer of abstraction in the controller for turtles, and changing the API to allow turtles to be referred to by ID.
+3. We allowed for more flexible control of the look of turtle window, both through commands and direct user interaction. All look changes goes through a DisplayController, which the backend can get from the FrontEndController. The DisplayController in turn calls the TurtleWindowController to make updates.
+
 User Interface:
 -------------
 ![](SlogoUI.jpg)
@@ -101,6 +108,12 @@ This API is responsible for handling the interaction between the front-end and b
 Class BackendController{<br/>
 	void evaluate(String command)  // parses the instruction received from the GUI and and<br/> evaluates the commands returned by parser one by one, updating UI on each step.<br/>
 	void stopExecution() // probably involves multithreading?<br/>
+
+  //sets all turtle pens up
+  void setAllPenUp
+  //sets all turtle pens down
+  void setAllPenDown
+  //toggles the turtles to selected
 }<br/><br/>
 
 class Variable{<br/>
@@ -134,6 +147,8 @@ abstract class UserCommand extends Command{<br/>
 	//for this execute, check if the command was already defined by the user. <br/>
 	public void update()<br/>
 }<br/><br/>
+
+
 
 API Example Code:
 ------------

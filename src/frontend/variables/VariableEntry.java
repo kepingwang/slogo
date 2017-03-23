@@ -81,7 +81,13 @@ public class VariableEntry extends Button{
 			}
 		}
 		return false;
-		
 	}
+	
+	  @Override
+	    public int hashCode() {
+	        int ans = 17;
+	        ans *= 37 + variableName.hashCode();
+	        return ans;
+	    }
 
 }

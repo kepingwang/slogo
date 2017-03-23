@@ -8,11 +8,13 @@ import backend.Variable;
 /**
  * This class is the superclass for all expressions. It contains
  */
-public abstract class Expression {
+public abstract class Expression implements java.io.Serializable {
+	private static final long serialVersionUID = -1577736662474712482L;
+
 	private Expression parent;
 	private List<Expression> children;
 	private int numChildren;
-	private BackendController controller;
+	private transient BackendController controller;
 	private Input info;
 	private String value = "";
 	private int lineNumber;
@@ -38,9 +40,11 @@ public abstract class Expression {
 	 */
 	public boolean checkLines() {
 		boolean sameLine = lineNumber == controller.getCurrentLine();
-		if (!sameLine)
-			getBackendController().setCurrentLine(lineNumber);
 		return sameLine || !controller.getByLine();
+	}
+	
+	public void setCurrentLine(int i){
+		controller.setCurrentLine(i);
 	}
 
 	/**
@@ -89,6 +93,15 @@ public abstract class Expression {
 		return controller;
 	}
 
+	// TODO: written by Keping. This is bad code.
+	// Only to be used when reloading an expression
+	public void setBackendController(BackendController controller) {
+		this.controller = controller;
+		for (Expression childExpression : children) {
+			childExpression.setBackendController(controller);
+		}
+	}
+
 	public int getNumChildren() {
 		return numChildren;
 	}
@@ -103,5 +116,9 @@ public abstract class Expression {
 
 	public void setLineNumber(int lineNumber) {
 		this.lineNumber = lineNumber;
+	}
+
+	public int getLineNumber() {
+		return lineNumber;
 	}
 }

@@ -5,16 +5,16 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import frontend.nonfxml.AppView;
-import frontend.nonfxml.FrontEndView;
-import frontend.nonfxml.IViewController;
-import frontend.nonfxml.config.FrontEndConfig;
+import frontend.IViewController;
+import frontend.frontend.FrontEndConfig;
+import frontend.frontend.FrontEndView;
+import frontend.menu.MenuController;
+import frontend.sessions.SessionsController;
 import javafx.stage.FileChooser;
-import language.LanguageSetter;
 import utils.FileChooserOption;
 import utils.MyFileIO;
 import utils.javafx.FX;
+import utils.language.LanguageSetter;
 
 public class AppController implements IViewController {
 	private static final FileChooser.ExtensionFilter SLOGO_CONF_EXT = new FileChooser.ExtensionFilter("SLogo config file", "*.logo_conf");
@@ -47,6 +47,8 @@ public class AppController implements IViewController {
 			in.close();
 			fileIn.close();
 		} catch (Exception e) {
+			//TODO
+			e.printStackTrace();
 			FX.alertError("ErrorTitle", "ConfigOpenError", file.getName());
 		}
 		if (frontEndConfig != null) {
@@ -63,8 +65,9 @@ public class AppController implements IViewController {
 			out.writeObject(sessionsController.getCurrentSession().getConfig());
 			out.close();
 			fileOut.close();
-			System.out.printf("Serialized data saved");
 		} catch (Exception e) {
+			// TODO
+			e.printStackTrace();
 			FX.alertError("ErrorTitle", "ConfigSaveError", file.getName());
 		}
 	}
