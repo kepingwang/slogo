@@ -108,6 +108,12 @@ This API is responsible for handling the interaction between the front-end and b
 Class BackendController{<br/>
 	void evaluate(String command)  // parses the instruction received from the GUI and and<br/> evaluates the commands returned by parser one by one, updating UI on each step.<br/>
 	void stopExecution() // probably involves multithreading?<br/>
+
+  //sets all turtle pens up
+  void setAllPenUp
+  //sets all turtle pens down
+  void setAllPenDown
+  //toggles the turtles to selected
 }<br/><br/>
 
 class Variable{<br/>
@@ -141,6 +147,8 @@ abstract class UserCommand extends Command{<br/>
 	//for this execute, check if the command was already defined by the user. <br/>
 	public void update()<br/>
 }<br/><br/>
+
+
 
 API Example Code:
 ------------
