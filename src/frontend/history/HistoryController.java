@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
  * The goal of the HistoryController class is to handle the front-end needs of the
  * History window which displays the history of commands the user has entered and allows
  * the user to click on these commands to execute them.
- * @author Matthew Tribby
+ * @author Keping
  */
 public class HistoryController implements IViewController {
 

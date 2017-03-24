@@ -13,7 +13,10 @@ import frontend.turtlescreen.preferences.PaletteIndexAlert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import utils.javafx.FX;
-/**@author matt, nikita, keping
+/**
+ * The goal of this controller is to handle aesthetic changes to the turtle 
+ * screen. It was created to eliminate some of the bulk from the FrontEndController
+ * @author matt, nikita, keping
  * */
 public class DisplayController {
 	private Map<Integer, Color> colors;
@@ -33,11 +36,22 @@ public class DisplayController {
 	private int penColorIndex = INIT_PEN_COLOR_INDEX;
 	
 
+	/**
+	 * Constructor, which just sets up initial variables to default values
+	 * @param controller
+	 */
 	public DisplayController(TurtleScreenController controller){
 		initialize();
 		turtleScreenController = controller;
 		syncConfig();
 	}
+	
+	/**
+	 * Constructor which also takes in a config to allow for the loading in 
+	 * of a saved configuration
+	 * @param controller
+	 * @param config Saved Configuration
+	 */
 	public DisplayController(TurtleScreenController controller, DisplayConfig config) {
 		initialize();
 		turtleScreenController = controller;
@@ -87,17 +101,28 @@ public class DisplayController {
 	}
 	
 	
+	/**
+	 * Display the Color Palette
+	 */
 	public void showColorPalette(){
 		colorPalette.show();
 	}
 	
+	/**
+	 * Change the pen width
+	 * @param width
+	 */
 	public void setPenSize(int width){
 		penSize = width;
 		turtleScreenController.setPenThickness(width);
 	}
 	
-	/**params is a 4 element array. params[0] = index. params[1] = r. params[2] = g. params[3] = b
-	 * */
+	/**
+	 * Calls the palette to set a certain index to a certain color based
+	 * on a given RGB value
+	 * @param params 4 element array. params[0] = index. params[1] = r. 
+	 * 			   					  params[2] = g. params[3] = b
+	 */
 	public void setPalette(int[] params){
 		if(params[1] < 0 || params[1] > 255 || params[2] < 0 || params[2] > 255 || params[3] < 0 || params[3] > 255){
 			FX.alertError("BadRGB", "BadRGBMessage", "");
@@ -109,6 +134,10 @@ public class DisplayController {
 		}
 	}
 	
+	/**
+	 * Sets the Image of the turtle (currently not utilized)
+	 * @param index Index of the turtle shape to use
+	 */
 	public void setShape(int index){
 		if(turtleImages.get(index) == null){
 			new PaletteIndexAlert(AlertType.ERROR);
@@ -119,6 +148,11 @@ public class DisplayController {
 		}
 	}
 	
+	/**
+	 * Sets the background color of the turtle screen based on the color
+	 * which is related to the index in the color palette
+	 * @param index index for color palette
+	 */
 	public void setBackground(int index){
 		if(colors.get(index) == null){
 			new PaletteIndexAlert(AlertType.ERROR);
@@ -129,6 +163,11 @@ public class DisplayController {
 		}
 	}
 	
+	/**
+	 * Changes pen color, setting it to the value related to indexing
+	 * into the color palette based on the given index
+	 * @param index index on color palette
+	 */
 	public void setPenColor(int index){
 		if(colors.get(index) == null){
 			new PaletteIndexAlert(AlertType.ERROR);
@@ -139,14 +178,26 @@ public class DisplayController {
 		}
 	}
 	
+	/**
+	 * Returns index tied to current pen color on color palette
+	 * @return index of color
+	 */
 	public int getPenColor(){
 		return penColorIndex;
 	}
 	
+	/**
+	 * Returns index tied to current shape on image palette
+	 * @return index of shape
+	 */
 	public int getShape(){
 		return shapeIndex;
 	}
 	
+	/**
+	 * Returns the current configuration. Utilize for saving the current states
+	 * @return DisplayConfig which holds the state for DisplayController
+	 */
 	public DisplayConfig getConfig() {
 		return new DisplayConfig(penSize, shapeIndex, backgroundIndex, penColorIndex);
 	}

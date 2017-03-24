@@ -23,8 +23,8 @@ public class VariableEntry extends Button{
 		
 		this.variable = variable;
 		variableName = variable.getKey();
-		setOnMouseClicked(e -> changeValue());
 		this.getStyleClass().add("table-entry");
+		setOnMouseClicked(e -> changeValue());
 	}
 	
 	private void changeValue(){

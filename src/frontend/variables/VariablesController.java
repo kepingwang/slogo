@@ -20,7 +20,11 @@ public class VariablesController implements IViewController {
 
 	private VBox variablesBox;
 	
-	
+	/**
+	 * Constructor which creates the box for which the VariabelEntry objects
+	 * can be stored in
+	 * @param view
+	 */
 	public VariablesController(VariablesView view) {
 		variablesBox = view.getVariablesBox();
 		variableEntries = new HashMap<String, VariableEntry>();
@@ -32,10 +36,18 @@ public class VariablesController implements IViewController {
 		}
 	}
 	
+	/**
+	 * Sets the reference to the FrontEndController
+	 * @param frontEndController
+	 */
 	public void setFrontEndController(FrontEndController frontEndController){
 		frontEnd =frontEndController;
 	}
 	
+	/**
+	 * Adds variable to be visually displayed. If duplicate, it will update
+	 * @param variable
+	 */
 	public void addVariable(Variable variable) {
 
 		if(!variableEntries.containsKey(variable.getKey())){
@@ -48,11 +60,19 @@ public class VariablesController implements IViewController {
 		}
 	}
 	
+	/**
+	 * Takes in a list and adds each variable
+	 * @param variables
+	 */
 	public void addVariable(List<Variable> variables) {
 		variables.forEach(this::addVariable);
 	}
 
-	public void removeVariable(Variable variable) throws Exception {
+	/**
+	 * Removes variable with the given name
+	 * @param variable Variable to remove from front-end view
+	 */
+	public void removeVariable(Variable variable) {
 		
 		if(variableEntries.containsKey(variable.getKey())){
 			variablesBox.getChildren().remove(variableEntries.get(variable.getKey()));
@@ -60,6 +80,11 @@ public class VariablesController implements IViewController {
 		}
 	}
 	
+	/**
+	 * Return a Map which maps the name of the variables to the variable
+	 * objects 
+	 * @return Map of String name to Variable
+	 */
 	public Map<String, Variable> getVariables() {
 		Map<String, Variable> variables = new HashMap<>();
 		for (String varKey : variableEntries.keySet()) {
@@ -68,6 +93,9 @@ public class VariablesController implements IViewController {
 		return variables;
 	}
 
+	/**
+	 * Clears the view
+	 */
 	public void clear() {
 		variablesBox = new VBox();
 	}
